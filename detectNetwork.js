@@ -12,24 +12,50 @@ var detectNetwork = function(cardNumber) {
   // The American Express network always starts with a 34 or 37 and is 15 digits long
   // Visa always has a prefix of 4 and a length of 13, 16, or 19.
   // MasterCard always has a prefix of 51, 52, 53, 54, or 55 and a length of 16.
-  var leadingNums = cardNumber.slice(0, 2);
+  // Discover always has a prefix of 6011, 644-649, or 65, and a length of 16 or 19.
+  // Maestro always has a prefix of 5018, 5020, 5038, or 6304, and a length of 12-19.
+  
+  var leadingNums = cardNumber.slice(0, 4);
   var amexPrefixes = ["34", "37"];
   var dinerPrefixes = ["38", "39"];
   var visaPrefixes = ["4"];
-  var visaLengths = [13, 16, 19];
   var masterPrefixes = ["51", "52", "53", "54", "55"];
+  var maestroPrefixes = ["5018", "5020", "5038", "6304"]
+  var discoverPrefixes = ["6011", "644", "645", "646", "647", "648", "649", "65"]
 
-  if (amexPrefixes.includes(leadingNums)){
-  	if (cardNumber.length === 15) return "American Express"
-  }
-  if (dinerPrefixes.includes(leadingNums)){
-  	if (cardNumber.length === 14) return "Diner's Club"
-  }
-  if (visaPrefixes.includes(leadingNums[0])){
-  	if (visaLengths.includes(cardNumber.length)) return "Visa"
-  }
-  if (masterPrefixes.includes(leadingNums)){
-  	if (cardNumber.length === 16) return "MasterCard"
+  // Refactor going one digit at a time, minimizing the potential network pool each time. 
+  // I.e. if the first num is "6", it can only be Discover or Maestro, "3" can only be 
+  // Amex / Diner, then do the same with length. Could have an issue with edge-cases like
+  // "6012", which would (erroneously) work in the proposed implementation but not the current one. 
+  // Also make a checkPrefixes function; stupid to repeat all that language in the switch case. 
+  		// related: look up procs/lambdas in JS. 
+
+  switch (cardNumber.length){
+  	case 12:
+  	  if (maestroPrefixes.includes(leadingNums)) return "Maestro"
+  	  break
+  	case 13:
+  	  if (maestroPrefixes.includes(leadingNums)) return "Maestro"
+  	  if (visaPrefixes.includes(leadingNums[0])) return "Visa"
+  	  break
+  	case 14:
+  	  if (maestroPrefixes.includes(leadingNums)) return "Maestro"
+      if (dinerPrefixes.includes(leadingNums.slice(0, 2))) return "Diner's Club"
+  	  break
+  	case 15:
+  	  if (maestroPrefixes.includes(leadingNums)) return "Maestro"
+  	  if (amexPrefixes.includes(leadingNums.slice(0, 2))) return "American Express"
+  	  break
+  	case 16:
+  	  if (maestroPrefixes.includes(leadingNums)) return "Maestro"
+  	  if (masterPrefixes.includes(leadingNums.slice(0, 2))) return "MasterCard"
+  	  if (discoverPrefixes.includes(leadingNums.slice(0, 2))) return "Discover" // this is problematic for the reasons listed above, "6012" would pass here. 
+  	  if (visaPrefixes.includes(leadingNums[0])) return "Visa"
+  	  break
+  	case 19:
+  	  if (maestroPrefixes.includes(leadingNums)) return "Maestro"
+  	  if (visaPrefixes.includes(leadingNums[0])) return "Visa"
+  	  break
   }
 };
 
