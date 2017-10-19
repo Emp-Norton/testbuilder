@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Credit Card Network Detector</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mocha/3.0.2/mocha.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mocha/3.0.2/mocha.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/chai/3.5.0/chai.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/sinon.js/1.15.4/sinon.min.js"></script>
@@ -13,5 +14,27 @@
   <div id="mocha">Open the Developer's Console (⌥⌘J) to get started. Move the console to the right side of the page (⌘⇧D) for an optimal experience.</div>
   <script src="detectNetwork.js"></script>
   <script src="detectNetwork.test.js"></script>
+  <button id="runtest" onclick="runTests()"> Run the tests! </button>
 </body>
+<script>
+  function runTests(){
+    const cardNums = [
+    "38345678901234", 
+    "39345678901234",
+    "343456789012345",
+    "373456789012345",
+    "4123456789012",
+    "4123456789012345", 
+    "4123456789012345678", 
+    "5112345678901234", 
+    "5212345678901234", 
+    "5312345678901234",
+    "5412345678901234", 
+    "5512345678901234"
+    ]
+
+    cardNums.forEach(cardNum => console.log(detectNetwork(cardNum)))
+    console.log(cardNums.length)
+  }
+  </script>
 </html>
