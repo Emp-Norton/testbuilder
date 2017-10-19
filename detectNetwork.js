@@ -30,6 +30,7 @@ var detectNetwork = function(cardNumber) {
   // Also make a checkPrefixes function; stupid to repeat all that language in the switch case. 
   		// related: look up procs/lambdas in JS. 
 
+  // this switch statement is a mess. Seriously reconsider this. 
   switch (cardNumber.length){
   	case 12:
   	  if (maestroPrefixes.includes(leadingNums)) return "Maestro"
@@ -49,12 +50,23 @@ var detectNetwork = function(cardNumber) {
   	case 16:
   	  if (maestroPrefixes.includes(leadingNums)) return "Maestro"
   	  if (masterPrefixes.includes(leadingNums.slice(0, 2))) return "MasterCard"
-  	  if (discoverPrefixes.includes(leadingNums.slice(0, 2))) return "Discover" // this is problematic for the reasons listed above, "6012" would pass here. 
+	  if (discoverPrefixes.includes(leadingNums.slice(0, 2)) || 
+	  	  discoverPrefixes.includes(leadingNums.slice(0, 3)) || 
+	  	  discoverPrefixes.includes(leadingNums.slice(0, 4)))return "Discover"// this is problematic for the reasons listed above, "6012" would pass here. 
   	  if (visaPrefixes.includes(leadingNums[0])) return "Visa"
+  	  break
+  	case 17:
+  	  if (maestroPrefixes.includes(leadingNums)) return "Maestro"
+  	  break 
+  	case 18:
+  	  if (maestroPrefixes.includes(leadingNums)) return "Maestro"
   	  break
   	case 19:
   	  if (maestroPrefixes.includes(leadingNums)) return "Maestro"
   	  if (visaPrefixes.includes(leadingNums[0])) return "Visa"
+  	  if (discoverPrefixes.includes(leadingNums.slice(0, 2)) ||
+  	     discoverPrefixes.includes(leadingNums.slice(0, 3)) ||
+  	     discoverPrefixes.includes(leadingNums.slice(0, 4)))return "Discover"
   	  break
   }
 };
