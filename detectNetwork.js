@@ -12,12 +12,12 @@ var detectNetwork = function(cardNumber) {
   // The American Express network always starts with a 34 or 37 and is 15 digits long
   // Visa always has a prefix of 4 and a length of 13, 16, or 19.
   // MasterCard always has a prefix of 51, 52, 53, 54, or 55 and a length of 16.
-  var leadingNums = cardNumber.slice(0, 2)
-  var amexPrefixes = ["34", "37"]
-  var dinerPrefixes = ["38", "39"]
-  var visaPrefixes = ["4"]
-  var visaLengths = [13, 16, 19]
-  var masterPrefixes = ["51", "52", "53", "54", "55"]
+  var leadingNums = cardNumber.slice(0, 2);
+  var amexPrefixes = ["34", "37"];
+  var dinerPrefixes = ["38", "39"];
+  var visaPrefixes = ["4"];
+  var visaLengths = [13, 16, 19];
+  var masterPrefixes = ["51", "52", "53", "54", "55"];
 
   if (amexPrefixes.includes(leadingNums)){
   	if (cardNumber.length === 15) return "American Express"
