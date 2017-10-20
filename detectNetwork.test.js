@@ -207,7 +207,6 @@ describe('should support China UnionPay', function(){
         (function(length) {
           var stringSuffix = new Array(length - prefix.toString().length).fill(1).join("").toString()
           it(`has a prefix of ${prefix} and a length of ${length}`, function(){
-            console.log(`${prefix}${stringSuffix}`)
             detectNetwork(`${prefix}${stringSuffix}`).should.equal('China UnionPay')
           });
         })(length)
@@ -216,8 +215,21 @@ describe('should support China UnionPay', function(){
   }
 });
 
-// Switch always has a prefix of 4903, 4905, 4911, 4936, 564182, 633110, 6333, or 6759 and a length of 16, 18, or 19.
-
+/*
 describe('should support Switch', function(){
-
+  var should = chai.should()
+  var lengths = [16, 18, 19]
+  var prefixes = ["4903", "4905", "4911", "4936", "564182", "633110", "6333", "6759"]
+  prefixes.forEach(function(prefix){
+    lengths.forEach(function(length){
+      (function(length){
+        var stringSuffix = newe Array(length - prefix.toString().length).fill(1).join("").toString();
+        it(`has a prefix of ${prefix} and a length of ${length}`, function(){
+          detectNetwork(`${prefix}${stringSuffix}`).should.equal('Switch')
+        });
+      })(length)
+    });
+  });
 });
+
+*/
