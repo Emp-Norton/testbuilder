@@ -215,7 +215,7 @@ describe('should support China UnionPay', function(){
   }
 });
 
-/*
+
 describe('should support Switch', function(){
   var should = chai.should()
   var lengths = [16, 18, 19]
@@ -223,7 +223,7 @@ describe('should support Switch', function(){
   prefixes.forEach(function(prefix){
     lengths.forEach(function(length){
       (function(length){
-        var stringSuffix = newe Array(length - prefix.toString().length).fill(1).join("").toString();
+        var stringSuffix = new Array(length - prefix.toString().length).fill(1).join("").toString();
         it(`has a prefix of ${prefix} and a length of ${length}`, function(){
           detectNetwork(`${prefix}${stringSuffix}`).should.equal('Switch')
         });
@@ -232,4 +232,3 @@ describe('should support Switch', function(){
   });
 });
 
-*/
