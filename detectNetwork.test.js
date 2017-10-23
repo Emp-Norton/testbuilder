@@ -222,12 +222,10 @@ describe('should support Switch', function(){
   var prefixes = ["4903", "4905", "4911", "4936", "564182", "633110", "6333", "6759"]
   prefixes.forEach(function(prefix){
     lengths.forEach(function(length){
-      (function(length){
-        var stringSuffix = new Array(length - prefix.toString().length).fill(1).join("").toString();
-        it(`has a prefix of ${prefix} and a length of ${length}`, function(){
-          detectNetwork(`${prefix}${stringSuffix}`).should.equal('Switch')
-        });
-      })(length)
+      var stringSuffix = new Array(length - prefix.toString().length).fill(1).join("").toString();
+      it(`has a prefix of ${prefix} and a length of ${length}`, function(){
+        detectNetwork(`${prefix}${stringSuffix}`).should.equal('Switch')
+      });
     });
   });
 });
